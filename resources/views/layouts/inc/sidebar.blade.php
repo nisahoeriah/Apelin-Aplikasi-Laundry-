@@ -26,6 +26,15 @@
             ]"/>
             @endcan
 
+            @can('admin-owner')
+            <x-nav-item href="{{ route('log') }}" :title="[
+                'name'=>'Log Activity',
+                'icon'=>'fas fa-shoe-prints',
+                'active'=>['log']
+            ]" />
+            @endcan
+
+
             @can('admin')
             <x-nav-item :href="route('user.index')" :title="[
                 'name'=>'User',

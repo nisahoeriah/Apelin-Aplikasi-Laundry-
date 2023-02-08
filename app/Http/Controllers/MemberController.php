@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
+use App\Models\LogActivity;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
@@ -37,6 +38,7 @@ class MemberController extends Controller
      */
     public function create()
     {
+        LogActivity::add('Berhasil Membuat Member');
         return view('member.create');
     }
 
@@ -82,6 +84,7 @@ class MemberController extends Controller
      */
     public function edit(Member $member)
     {
+        LogActivity::add('Berhasil Mengupdate Member');
         return view('member.edit', [
             'member' => $member
         ]);
@@ -119,6 +122,7 @@ class MemberController extends Controller
      */
     public function destroy(Member $member)
     {
+        LogActivity::add('Berhasil Menghapus Member');
         $member->delete();
         return back()->with('message', 'success delete');
     }

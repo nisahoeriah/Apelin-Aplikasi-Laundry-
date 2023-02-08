@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\Models\LogActivity;
 
 class ProfileController extends Controller
 {
@@ -17,6 +18,7 @@ class ProfileController extends Controller
 
     public function update(Request $request)
     {
+        LogActivity::add('Berhasil Mengupdate Profile');
         $user = Auth::user();
         $request->validate([
             'nama'=>'required|between:3,100',

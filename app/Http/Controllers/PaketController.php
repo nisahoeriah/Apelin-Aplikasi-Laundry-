@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Paket;
 use App\Models\Outlet;
+use App\Models\LogActivity;
 use Illuminate\Http\Request;
 
 class PaketController extends Controller
@@ -57,6 +58,7 @@ class PaketController extends Controller
      */
     public function create()
     {
+        LogActivity::add('Berhasil Membuat Paket');
        $outlets = Outlet::select('id as value', 'nama as option')->get();
        return view('paket.create',[
         'outlets'=>$outlets
@@ -105,6 +107,7 @@ class PaketController extends Controller
      */
     public function edit(Paket $paket)
     {
+        LogActivity::add('Berhasil Mengupdate Paket');
         $outlets = Outlet::select('id as value', 'nama as option')->get();
        return view('paket.edit',[
         'paket'=>$paket,
@@ -144,6 +147,7 @@ class PaketController extends Controller
      */
     public function destroy(Paket $paket)
     {
+        LogActivity::add('Berhasil Menghapus Paket');
         $paket->delete();
         return back()->with('message', 'success delete');
     }

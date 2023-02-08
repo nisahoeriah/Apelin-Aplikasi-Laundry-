@@ -28,5 +28,21 @@
             </form>
         </div>
     </div>
+
+    {{-- @push('js')
+    <script>
+        const password = document.querySelector("input");
+        const btn_show = document.querySelector("i");
+        btn_show.addEdventListener("click", function() {
+            if(password.type === "password") {
+                password.type === "text";
+                btn_show.classList.add("hide");
+            } else {
+                password.type = "password";
+                btn_show.classList.remove("hide");
+            }
+        })
+    </script>
+    @endpush --}}
 </x-content>
 @endsection

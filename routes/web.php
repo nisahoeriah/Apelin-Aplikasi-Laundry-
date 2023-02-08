@@ -10,6 +10,7 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LogActivityController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,6 +44,8 @@ Route::middleware('auth')->group(function(){
         Route::resource('outlet',OutletController::class);
 
         Route::resource('paket',PaketController::class);
+
+        Route::delete('log',[LogActivityController::class,'clear'])->name('log.clear');
     });
 
     Route::middleware('can:admin-kasir')->group(function(){
@@ -76,9 +79,14 @@ Route::middleware('auth')->group(function(){
         [TransaksiController::class,'status'])->name('transaksi.status');
 
         Route::get('transaksi/{transaksi}/invoice',
-        [TransaksiController::class,'invoice'])->name('transaksi.invoice');
+        [TransaksiController::class,'invoice'])->name('transaksi.invoice');   
         
     });
+
+    Route::middleware('can:admin-owner')->group(function(){
+        Route::get('log',[LogActivityController::class,'index'])->name('log');
+    });
+
 
     Route::get('/laporan',
     [LaporanController::class,'index'])->name('laporan.index');

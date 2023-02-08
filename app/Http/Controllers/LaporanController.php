@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Outlet;
 use App\Models\Transaksi;
+use App\Models\LogActivity;
 use DB;
 
 class LaporanController extends Controller
@@ -46,6 +47,7 @@ class LaporanController extends Controller
 
     public function harian(Request $request)
     {
+        LogActivity::add('Berhasil Membuat Laporan Harian');
         $request->validate([
             'tanggal'=>'required|date_format:Y-m-d',
             'outlet_id'=>'required'
@@ -74,6 +76,7 @@ class LaporanController extends Controller
 
     public function perbulan(Request $request)
     {
+        LogActivity::add('Berhasil Membuat Laporan Per-Bulan');
         $request->validate([
             'bulan'=>'required|numeric|between:1,12',
             'tahun'=>'required|numeric|digits:4',

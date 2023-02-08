@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Outlet;
+use App\Models\LogActivity;
 use Illuminate\Http\Request;
 
 class OutletController extends Controller
@@ -37,6 +38,7 @@ class OutletController extends Controller
      */
     public function create()
     {
+        LogActivity::add('Berhasil Membuat Outlet');
         return view('outlet.create');
     }
 
@@ -81,6 +83,7 @@ class OutletController extends Controller
      */
     public function edit(Outlet $outlet)
     {
+        LogActivity::add('Berhasil Mengupdate Outlet');
         return view('outlet.edit',[
             'outlet'=>$outlet
         ]);
@@ -117,6 +120,7 @@ class OutletController extends Controller
      */
     public function destroy(Outlet $outlet)
     {
+        LogActivity::add('Berhasil Menghapus Outlet');
         $outlet->delete();
         return back()->with('message', 'success delete');
     }

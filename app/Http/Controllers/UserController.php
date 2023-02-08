@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Outlet;
+use App\Models\LogActivity;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -46,6 +47,7 @@ class UserController extends Controller
      */
     public function create()
     {
+        LogActivity::add('Berhasil Membuat User');
         $outlets = Outlet::select('id as value', 'nama as option')->get();
         return view('user.create', [
             'outlets' => $outlets
@@ -99,6 +101,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        LogActivity::add('Berhasil Mengupdate User');
         $outlets = Outlet::select('id as value', 'nama as option')->get ();
         return view('user.edit', [
             'user'=>$user,
@@ -147,6 +150,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        LogActivity::add('Berhasil Menghapus User');
        $user->delete();
        return back()->with('message','success delete');
     }

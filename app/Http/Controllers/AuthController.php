@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\Models\LogActivity;
 
 class AuthController extends Controller
 {
@@ -25,6 +26,8 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt ($cred, $request->remember)) {
+
+            LogActivity::add('berhasil Login');
             $request->session()->regenerate();
             return redirect()->intended('/');
         }
@@ -36,6 +39,7 @@ class AuthController extends Controller
 
     public function logout()
     {
+        LogActivity::add('berhasil Logout');
         Auth::logout();
         return redirect()->route('login');
     }

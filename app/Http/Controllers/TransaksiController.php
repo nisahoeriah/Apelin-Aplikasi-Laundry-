@@ -9,6 +9,7 @@ use App\Models\Paket;
 use App\Models\Transaksi;
 use App\Models\TransaksiDetail;
 use App\Models\User;
+use App\Models\LogActivity;
 use Auth;
 use Cart;
 
@@ -63,6 +64,7 @@ class TransaksiController extends Controller
 
     public function create(Request $request, Member $member)
     {
+        LogActivity::add('Berhasil Membuat Transaksi');
         $user = Auth::user();
         $outlet = Outlet::find($user->outlet_id);
         $pakets = Paket::where('outlet_id',$outlet->id)
@@ -255,6 +257,7 @@ class TransaksiController extends Controller
 
     public function status(Transaksi $transaksi, $status)
     {
+        LogActivity::add('Berhasil Mengupdate Transaksi');
         $transaksi->update([
             'status'=>$status
         ]);
