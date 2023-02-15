@@ -59,10 +59,12 @@
                         class="btn btn-default mr-2">Kembali</a>
             
             <div class="dropdown">
+                @if ($transaksi->status != 'diambil')
                 <button class="btn btn-success dropdown-toggle" 
                     type="button" data-toggle="dropdown">
                      Pilih Status Menjadi
                 </button>
+                @endif
                 <div class="dropdown-menu">
                     <?php
                     $status = [

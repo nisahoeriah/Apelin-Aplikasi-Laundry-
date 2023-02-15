@@ -14,7 +14,7 @@
                     @csrf
                     <x-input label="Nama Paket" name="nama_paket" />
 
-                    <x-input label="Harga" name="harga" />
+                    <x-input label="Harga" name="harga" type="number" />
 
                     <x-select 
                     label="Jenis" name="jenis" 

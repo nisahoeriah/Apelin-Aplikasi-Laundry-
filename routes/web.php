@@ -75,6 +75,9 @@ Route::middleware('auth')->group(function(){
         Route::put('transaksi/{transaksi}',
         [TransaksiController::class,'update'])->name('transaksi.update');
 
+        Route::get('transaksi/member/{member}/paket/{paket}/updateCart',
+        [TransaksiController::class,'updateCart'])->name('transaksi.updateCart');
+    
         Route::get('transaksi/{transaksi}/status/{status}',
         [TransaksiController::class,'status'])->name('transaksi.status');
 

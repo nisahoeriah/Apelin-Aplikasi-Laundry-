@@ -1,6 +1,6 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="/" class="brand-link">
-        <img src="/images/inventaris.jpg" class="brand-image img-circle elevation-3"style="opacity: .8">
+        <img src="/images/gantungan.jpg" class="brand-image img-circle elevation-3"style="opacity: .8">
         <span class="brand-text font-weight-light">{{ config('app.name') }}</span>
     </a>
     <div class="sidebar">
@@ -26,15 +26,6 @@
             ]"/>
             @endcan
 
-            @can('admin-owner')
-            <x-nav-item href="{{ route('log') }}" :title="[
-                'name'=>'Log Activity',
-                'icon'=>'fas fa-shoe-prints',
-                'active'=>['log']
-            ]" />
-            @endcan
-
-
             @can('admin')
             <x-nav-item :href="route('user.index')" :title="[
                 'name'=>'User',
@@ -54,6 +45,15 @@
                 'active'=>['paket.index','paket.create','paket.edit']
             ]"/>
             @endcan
+
+            @can('admin-owner')
+            <x-nav-item href="{{ route('log') }}" :title="[
+                'name'=>'Log Activity',
+                'icon'=>'fas fa-shoe-prints',
+                'active'=>['log']
+            ]" />
+            @endcan
+
 
             <x-nav-item :href="route('laporan.index')" :title="[
                 'name'=>'Laporan',

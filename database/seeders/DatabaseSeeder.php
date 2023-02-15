@@ -69,19 +69,19 @@ class DatabaseSeeder extends Seeder
 
     DB::table('members')->insert([
         [
-            'nama'=>'Dodo Sidodo',
-            'jenis_kelamin'=>'L',
+            'nama'=>'Nisa Hoeriah',
+            'jenis_kelamin'=>'P',
             'alamat'=>'Padaherang',
             'tlp'=>'888777666888'
         ],
         [
-            'nama'=>'Ananda',
+            'nama'=>'Lia Cahyani',
             'jenis_kelamin'=>'P',
             'alamat'=>'Padaherang',
             'tlp'=>'888222666555'
         ],
         [
-            'nama'=>'Caca',
+            'nama'=>'Tita Herlita',
             'jenis_kelamin'=>'P',
             'alamat'=>'Banjarsari',
             'tlp'=>'888777666333'

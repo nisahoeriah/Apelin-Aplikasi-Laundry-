@@ -89,12 +89,14 @@ class TransaksiController extends Controller
         ]);
 
         $paket = Paket::find($request->paket);
+        $paket->qty = $request->quantity;
+        
 
         Cart::session($member->id)->add(array(
             'id' => $paket->id,
             'name' => $paket->nama_paket,
             'price'=> $paket->harga,
-            'quantity' => 1,
+            'quantity' =>$paket->qty,
             'attributes' => [
                 'keterangan'=>$request->keterangan
             ]
@@ -186,6 +188,7 @@ class TransaksiController extends Controller
                 'keterangan'=>$item->attributes->keterangan,
             ]);
         }
+        Cart::clear();
 
         return redirect()->route('transaksi.detail',['transaksi'=>$transaksi->id]);
     }
@@ -217,8 +220,18 @@ class TransaksiController extends Controller
         ]);
     }
 
+    public function updateCart (Request $request, Member $member, Paket $paket)
+    {
+        $type = $request->type;
+        Cart::session($member->id)->update($paket->id,[
+            'quantity'=> $type == 'min' ? -1 : 1,
+        ]);
+        return back();
+    }
+
     public function update(Request $request, Transaksi $transaksi)
     {
+        LogActivity::add('Berhasil Mengupdate Pembayaran');
         $request->validate([
             'diskon'=>'nullable|numeric',
             'biaya_tambahan'=>'nullable|numeric',
@@ -257,7 +270,7 @@ class TransaksiController extends Controller
 
     public function status(Transaksi $transaksi, $status)
     {
-        LogActivity::add('Berhasil Mengupdate Transaksi');
+        LogActivity::add('Berhasil Mengupdate Status');
         $transaksi->update([
             'status'=>$status
         ]);

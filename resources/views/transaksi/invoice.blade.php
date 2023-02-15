@@ -34,8 +34,9 @@
 </head>
 <body onload="javascript:window.print()">
     <div class="invoice">
-        <h3 class="center">{{ $outlet->nama }}</h3>
-        <p class="center">
+        <img src="/images/gantungan.jpg" width="70" align="left">
+        <h3 class="left">{{ $outlet->nama }}</h3>
+        <p class="left">
             {{ $outlet->alamat  }} <br> {{ $outlet->tlp }}
         </p>
         <hr>
@@ -69,10 +70,10 @@
             Biaya Tambahan : {{ number_format($transaksi->biaya_tambahan,0,',','.') }} <br>
             Pajak PPN(10%) : {{ number_format($transaksi->pajak,0,',','.') }} <br>
             Total : {{ number_format($transaksi->total_bayar,0,',','.') }} <br>
-            @if($transaksi->bayar == 'bayar')
+            {{-- @if($transaksi->bayar == 'bayar') --}}
             Tunai : {{ number_format($transaksi->cash,0,',','.') }} <br>
             Kembalian : {{ number_format($transaksi->kembalian,0,',','.') }} <br>
-            @endif
+            {{-- @endif --}}
         </p>
         @if($transaksi->dibayar == 'dibayar')
         <h3 class="center">Terima Kasih</h3>

@@ -31,7 +31,7 @@
                             <div class="form-group row">
                                 <label class="col">Quantity</label>
                                 <div class="col">
-                                    <x-input-transaksi name="quantity" />
+                                    <x-input-transaksi name="quantity" type="number" />
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -76,8 +76,14 @@
                                 </td>
                                 <td>{{ $item->attributes->keterangan }}</td>
                                 <td>
+                                    <a href="{{ route('transaksi.updateCart',['member'=>$member->id, 'paket'=>$item->id, 'type'=>'plus']) }}" class="btn btn-xs btn-primary">
+                                        <i class="fas fa-plus-square"></i>
+                                      </a> 
+                                      <a href="{{ route('transaksi.updateCart',['member'=>$member->id, 'paket'=>$item->id, 'type'=>'min']) }}" class="btn btn-xs btn-warning">
+                                        <i class="fas fa-minus-square"></i>
+                                      </a>
                                     <a href="{{ route('transaksi.delete', ['member' => $member->id, 'paket'=>$item->id]) }}"
-                                        class="btn p-0 text-danger"><i class="fas fa-trash"></i>
+                                        class="btn btn-xs btn-danger"><i class="fas fa-trash"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -119,13 +125,13 @@
                         <div class="form-group row">
                             <label class="col">Diskon (Optional)</label>
                             <div class="col">
-                                <x-input-transaksi name="diskon" id="diskon" />
+                                <x-input-transaksi name="diskon" id="diskon" type="number" />
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col">Biaya Tambahan (Optional)</label>
                             <div class="col">
-                                <x-input-transaksi name="biaya_tambahan" id="biaya_tambahan" />
+                                <x-input-transaksi name="biaya_tambahan" id="biaya_tambahan" type="number" />
                             </div>
                         </div>
                         <div class="form-group row">
@@ -143,7 +149,7 @@
                         <div class="form-group row">
                             <label class="col">Uang Tunai / Cash (Optional)</label>
                             <div class="col">
-                                <x-input-transaksi name="uang_tunai" />
+                                <x-input-transaksi name="uang_tunai" type="number" />
                             </div>
                         </div>
                         <div class="form-group row">

@@ -76,7 +76,7 @@ class LaporanController extends Controller
 
     public function perbulan(Request $request)
     {
-        LogActivity::add('Berhasil Membuat Laporan Per-Bulan');
+        LogActivity::add('Berhasil Membuat Laporan Bulanan');
         $request->validate([
             'bulan'=>'required|numeric|between:1,12',
             'tahun'=>'required|numeric|digits:4',

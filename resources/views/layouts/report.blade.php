@@ -10,6 +10,7 @@
     @stack('css')
 </head>
 <body onload="javascript:window.print()">
+        @include('layouts.inc.kop')
         @yield('content')
 </body>
 </html>

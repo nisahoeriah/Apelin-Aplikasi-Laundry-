@@ -46,7 +46,7 @@ action="{{ route('transaksi.update',['transaksi'=>$transaksi->id]) }}"
                         <x-input-transaksi
                         name="diskon"
                         id="diskon"
-                        :value="$transaksi->diskon"  />
+                        :value="$transaksi->diskon"  type="number" />
                     </div>
                 </div>
                 <div class="form-group row">
@@ -55,7 +55,7 @@ action="{{ route('transaksi.update',['transaksi'=>$transaksi->id]) }}"
                         <x-input-transaksi
                         name="biaya_tambahan"
                         id="biaya_tambahan"
-                        :value="$transaksi->biaya_tambahan" />
+                        :value="$transaksi->biaya_tambahan" type="number" />
                     </div>
                 </div>
                 <div class="form-group row">
@@ -80,7 +80,7 @@ action="{{ route('transaksi.update',['transaksi'=>$transaksi->id]) }}"
                     <label class="col">Uang Tunai / Cash (optional)</label>
                     <div class="col">
                         <x-input-transaksi
-                        name="uang_tunai" />
+                        name="uang_tunai" type="number" />
                     </div>
                 </div>
                 <div class="form-group row">
@@ -89,10 +89,12 @@ action="{{ route('transaksi.update',['transaksi'=>$transaksi->id]) }}"
                         class="btn btn-default mr-2">Kembali</a>
             
             <div class="dropdown">
+                @if ($transaksi->status != 'diambil')
                 <button class="btn btn-success dropdown-toggle" 
                     type="button" data-toggle="dropdown">
                      Pilih Status Menjadi
                 </button>
+                @endif
                 <div class="dropdown-menu">
                     <?php
                     $status = [
