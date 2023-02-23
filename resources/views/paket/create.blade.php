@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-4 col-md-6">
             <form 
-            class="card card-primary" 
+            class="card card-info" 
             method="POST" 
             action="{{ route('paket.store') }}">
                 <div class="card-header">

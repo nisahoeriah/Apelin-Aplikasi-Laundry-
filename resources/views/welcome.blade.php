@@ -9,14 +9,14 @@
         <x-box :data-box="[
             'label' => 'Transaksi',
             'icon' => 'fas fa-cash-register',
-            'background' => 'bg-success',
+            'background' => 'bg-danger',
             'href' => route('transaksi.index'),
             'value' => $transaksi->jumlah,
         ]" />
         <x-box :data-box="[
             'label' => 'Member',
             'icon' => 'fas fa-users',
-            'background' => 'bg-primary',
+            'background' => 'bg-teal',
             'href' => route('member.index'),
             'value' => $member->jumlah,
         ]" />
@@ -24,15 +24,15 @@
         @can('admin')
         <x-box :data-box="[
             'label' => 'Outlet',
-            'icon' => 'fas fa-cash-register',
-            'background' => 'bg-success',
+            'icon' => 'fas fa-store-alt',
+            'background' => 'bg-cyan',
             'href' => route('outlet.index'),
             'value' => $outlet->jumlah,
         ]" />
         <x-box :data-box="[
             'label' => 'User',
-            'icon' => 'fas fa-users',
-            'background' => 'bg-danger',
+            'icon' => 'fas fa-user',
+            'background' => 'bg-purple',
             'href' => route('user.index'),
             'value' => $user->jumlah,
         ]" />
@@ -54,11 +54,12 @@
 <script>
     var ctx = document.getElementById('chartTransaksi').getContext('2d');
         var myChart = new Chart(ctx, {
-            type: 'line',
+            type: 'bar',
             data: {
                 labels: <?= json_encode($label) ?>,
                 datasets: [{
                     label: "Pendapatan",
+                    backgroundColor: 'yellow',
                     data: <?= json_encode($jumlah) ?>,
                 }]
             },

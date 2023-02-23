@@ -4,7 +4,7 @@
     @if (session('message') == 'success update')
     <x-alert-success type="update" />
     @endif
-    <div class="card card-primary card-outline">
+    <div class="card card-info card-outline">
         <div class="card-header">
             <div class="row">
                 <div class="col">
@@ -19,7 +19,7 @@
                     <div class="form-group">
                         <a href="{{ route('transaksi.invoice',
                         ['transaksi'=>$transaksi->id]) }}" target="_blank"
-                        class="btn btn-primary">
+                        class="btn btn-info">
                     Cetak Invoice
                     </a>
                     </div>

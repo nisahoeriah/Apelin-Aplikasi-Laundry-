@@ -6,7 +6,7 @@
             <form
             target="_blank"
             action="{{ route('laporan.harian') }}"
-            class="card card-primary">
+            class="card card-info">
             <div class="card-header">
                 Laporan Harian
             </div>
@@ -17,7 +17,7 @@
                 :data-option="$outlets" />
             </div>
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-info">
                     Generate Laporan
                 </button>
             </div>
@@ -27,7 +27,7 @@
             <form 
             target="_blank"
             action="{{ route('laporan.perbulan') }}"
-            class="card card-primary">
+            class="card card-info">
             <div class="card-header">
                 Laporan Per-Bulan
             </div>
@@ -47,7 +47,7 @@
                 :data-option="$outlets" />
             </div>
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-info">
                     Generate Laporan
                 </button>
             </div>

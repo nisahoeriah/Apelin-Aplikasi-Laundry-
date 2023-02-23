@@ -1,6 +1,6 @@
 <div class="row ml-3 mr-3 mt-3">
     <div class="col-3">
-        <img src="/images/gantungan.jpg" width="100px">
+        <img src="/images/logo.jpg" width="100px">
     </div>
     <div class="col-6 text-center">
         {{-- <p>PEMERINTAH DAERAH PROVINSI JAWA BARAT<br>DINAS PENDIDIKAN<br> --}}

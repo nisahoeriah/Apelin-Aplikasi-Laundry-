@@ -9,7 +9,7 @@
     @stack('css')
     <link rel="stylesheet" href="/adminlte/dist/css/adminlte.min.css">
 </head>
-<body class="hold-transition sidebar-mini {{ isset($login) ? ' login-page' : '' }}">
+<body class="hold-transition sidebar-mini{{ isset($login) ? ' login-page' : '' }}">
     @if (isset($login))
     <div class="login-box">
         @yield('content')
@@ -20,7 +20,7 @@
     @include('layouts.inc.sidebar')
     @yield('content')
     <footer class="main-footer">
-        <strong>Copyright &copy; 2023 <a href="/">{{ config ('app.name') }}</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2023 <a class="text-info" href="/">{{ config('app.name')}}</a>.</strong> All rights reserved.
     </footer>
  </div>
  @endif

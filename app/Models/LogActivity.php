@@ -46,6 +46,6 @@ class LogActivity extends Model
         })
         ->orderBy('id','desc')
         ->select('log.id as id','nama','role','subject','ip','agent','log.created_at AS tanggal')
-        ->paginate(20);
+        ->paginate(50);
     }
 }

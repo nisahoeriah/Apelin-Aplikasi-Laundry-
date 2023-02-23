@@ -4,7 +4,7 @@
         'name' => 'Transaksi',
         'icon' => 'fas fa-cash-register',
     ]">
-        <div class="card card-outline card-primary">
+        <div class="card card-outline card-info">
             <div class="card-header">
                 <div class="row">
                     <div class="col">
@@ -14,7 +14,8 @@
                     </div>
                     <div class="col-2"></div>
                     <div class="col">
-                        <form action="{{ route('transaksi.add', ['member' => $member->id]) }}" method="get">
+                        <form action="{{ route('transaksi.add', ['member' => $member->id]) }}" 
+                        method="post">
                             @csrf
                             <div class="form-group row">
                                 <label class="col">Outlet</label>
@@ -42,7 +43,7 @@
                             </div>
                             <div class="form-group row">
                                 <div class="offset-6 col">
-                                    <button type="submit" class="btn btn-primary btn-block">Tambah</button>
+                                    <button type="submit" class="btn btn-info btn-block">Tambah</button>
                                 </div>
                             </div>
                         </form>
@@ -159,7 +160,7 @@
                                     class="btn btn-danger">Clear</a>
                             </div>
                             <div class="col">
-                                <button type="submit" class="btn btn-primary btn-block"><i
+                                <button type="submit" class="btn btn-info btn-block"><i
                                         class="fas fa-database mr-2"></i> Simpan / Proses</button>
                             </div>
                         </div>

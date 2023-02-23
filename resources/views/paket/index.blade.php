@@ -14,7 +14,7 @@
     <x-alert-success type="delete" />
     @endif
 
-    <div class="card card-outline card-primary">
+    <div class="card card-outline card-info">
         <div class="card-header form-inline">
             <x-btn-add :href="route('paket.create')" />
             <x-search/>

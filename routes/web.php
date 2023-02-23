@@ -57,7 +57,7 @@ Route::middleware('auth')->group(function(){
         Route::get('transaksi/member/{member}',
         [TransaksiController::class,'create'])->name('transaksi.create');
 
-        Route::get('transaksi/member/{member}/add',
+        Route::post('transaksi/member/{member}/add',
         [TransaksiController::class,'add'])->name('transaksi.add');
 
         Route::get('transaksi/member/{member}/paket/{paket}/delete',

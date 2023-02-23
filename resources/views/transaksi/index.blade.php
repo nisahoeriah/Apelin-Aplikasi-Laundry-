@@ -1,7 +1,7 @@
 @extends('layouts.main',['title'=>'Transaksi'])
 @section ('content')
 <x-content :title="['name'=>'Transaksi','icon'=>'fas fa-cash-register']">
-<div class="card card-primary card-outline">
+<div class="card card-info card-outline">
     <div class="card-header form-inline">
         @include('transaksi.add',['members'=>$members])
         <x-search/>

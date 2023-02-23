@@ -113,7 +113,7 @@ action="{{ route('transaksi.update',['transaksi'=>$transaksi->id]) }}"
             </div>
         </div>
         <div class="col">
-            <button type="submit" class="btn btn-primary btn-block">
+            <button type="submit" class="btn btn-info btn-block">
                 <i class="fas fa-database mr-2"></i>Update Pembayaran
             </button>
         </div>

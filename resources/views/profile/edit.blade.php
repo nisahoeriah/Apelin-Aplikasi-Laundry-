@@ -8,7 +8,7 @@
             <x-alert-success type="update" />
             @endif
 
-            <form class="card card-primary" method="POST" action="{{ route('profile') }}">
+            <form class="card card-info" method="POST" action="{{ route('profile') }}">
                 <div class="card-header"></div>
                 <div class="card-body">
                     @csrf

@@ -1,6 +1,16 @@
 @extends('layouts.main',['title'=>'Sign In','login'=>true])
 
 @section('content')
+<style>
+    .logo {
+           border-radius: 50%;
+           width: 80px;
+           margin-left: auto;
+           margin-right: auto;
+          display: block;
+       } */
+</style>
+<img src="/images/logo.jpg" class="logo">
 <div class="login-logo">
     <a href="/"><b>Login</b>{{ config('app.name') }}</a>
 </div>
@@ -42,7 +52,7 @@
                 </div>
 
                 <div class="col-4">
-                    <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                    <button type="submit" class="btn btn-info btn-block">Sign In</button>
                 </div>
             </div>
         </form>

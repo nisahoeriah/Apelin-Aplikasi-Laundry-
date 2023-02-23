@@ -15,6 +15,14 @@
             width: 70mm;
         }
 
+        /* .logo {
+            border-radius: 50%;
+            width: 80px;
+            margin-left: auto;
+            margin-right: auto;
+           display: block;
+        } */
+
         table {
             width: 100%;
         }
@@ -34,7 +42,8 @@
 </head>
 <body onload="javascript:window.print()">
     <div class="invoice">
-        <img src="/images/gantungan.jpg" width="70" align="left">
+        {{-- <img src="/images/logo.jpg"  class="logo"> --}}
+        <img src="/images/logo.jpg" width="70" align="left">
         <h3 class="left">{{ $outlet->nama }}</h3>
         <p class="left">
             {{ $outlet->alamat  }} <br> {{ $outlet->tlp }}
