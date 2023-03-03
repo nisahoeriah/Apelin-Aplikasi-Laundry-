@@ -12,7 +12,7 @@
                 </div>
                 <div class="card-body">
                     @csrf
-                    <x-input label="Nama" name="nama" />
+                    <x-input label="Nama" name="nama"/>
 
                     <x-select 
                     label="Jenis Kelamin" name="jenis_kelamin" 
@@ -21,7 +21,7 @@
                         ['option'=>'Perempuan','value'=>'P']
                     ]" />
 
-                    <x-input label="Telepon" name="tlp" />
+                    <x-input label="Telepon" name="tlp" type="number"/>
 
                     <x-textarea label="Alamat" name="alamat" />
                     

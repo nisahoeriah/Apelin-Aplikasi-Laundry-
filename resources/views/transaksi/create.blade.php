@@ -32,7 +32,7 @@
                             <div class="form-group row">
                                 <label class="col">Quantity</label>
                                 <div class="col">
-                                    <x-input-transaksi name="quantity" type="number" />
+                                    <x-input-transaksi name="quantity" />
                                 </div>
                             </div>
                             <div class="form-group row">

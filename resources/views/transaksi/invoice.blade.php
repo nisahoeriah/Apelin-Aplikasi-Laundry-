@@ -51,7 +51,11 @@
         <hr>
         <p>
             Kode Transaksi : {{ $transaksi->kode_invoice }} <br>
-            Tanggal : {{  date('d/m/Y H:i:s', strtotime($transaksi->tgl))}} <br>
+            Tanggal : {{  date('l d F Y H:i:s', strtotime($transaksi->tgl))}} <br>
+            Tanggal Diambil : {{  date('l d F Y H:i:s', strtotime($transaksi->batas_waktu))}} <br>
+            @if($transaksi->dibayar == 'dibayar')
+            Tanggal Bayar : {{  date('l d F Y H:i:s', strtotime($transaksi->tgl_bayar))}} <br>
+            @endif
             Nama Pelanggan : {{ $member->nama }} <br>
             Kasir : {{ $user->nama }}
         </p>

@@ -34,6 +34,7 @@ class AuthController extends Controller
 
         return back()->withErrors([
             'username' => 'Kredensial yang diberikan tidak cocok dengan catatan kami.',
+            'password' => 'Kredensial yang diberikan tidak cocok dengan catatan kami.',
         ]);
     }
 

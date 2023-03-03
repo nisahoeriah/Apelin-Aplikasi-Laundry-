@@ -51,7 +51,7 @@ class OutletController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|max:100',
+            'nama' => 'required|max:100|unique:outlets,nama',
             'tlp' => 'required|max:20',
             'alamat' => 'required|max:250',
         ], [], [
@@ -99,7 +99,7 @@ class OutletController extends Controller
     public function update(Request $request, Outlet $outlet)
     {
         $request->validate([
-            'nama' => 'required|max:100',
+            'nama' => 'required|max:100|unique:outlets,nama',
             'tlp' => 'required|max:20',
             'alamat' => 'required|max:250',
         ], [], [

@@ -14,7 +14,7 @@
                     @csrf
                     <x-input label="Nama" name="nama" />
 
-                    <x-input label="Telepon" name="tlp" />
+                    <x-input label="Telepon" name="tlp" type="number"/>
 
                     <x-textarea label="Alamat" name="alamat" />
                 </div>

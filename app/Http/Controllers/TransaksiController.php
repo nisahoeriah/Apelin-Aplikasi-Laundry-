@@ -46,6 +46,7 @@ class TransaksiController extends Controller
             'total_bayar',
             'outlets.nama as outlet'
         )
+        ->orderBy('id','desc')
         ->paginate();
 
         $transaksis->map(function ($row) {

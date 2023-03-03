@@ -74,7 +74,7 @@ class PaketController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_paket'=>'required|max:100',
+            'nama_paket'=>'required|max:100|unique:paketss,nama',
             'harga'=>'required|numeric',
             'jenis'=>'required|in:kiloan,bed_cover,kaos,selimut,lain',
             'outlet_id'=>'required|exists:outlets,id'
@@ -125,7 +125,7 @@ class PaketController extends Controller
     public function update(Request $request, Paket $paket)
     {
         $request->validate([
-            'nama_paket'=>'required|max:100',
+            'nama_paket'=>'required|max:100|unique:pakets,nama',
             'harga'=>'required|numeric',
             'jenis'=>'required|in:kiloan,bed_cover,kaos,selimut,lain',
             'outlet_id'=>'required|exists:outlets,id'
