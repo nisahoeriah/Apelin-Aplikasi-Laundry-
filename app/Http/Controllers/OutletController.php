@@ -99,7 +99,7 @@ class OutletController extends Controller
     public function update(Request $request, Outlet $outlet)
     {
         $request->validate([
-            'nama' => 'required|max:100|unique:outlets,nama',
+            'nama' => 'required|max:100',
             'tlp' => 'required|max:20',
             'alamat' => 'required|max:250',
         ], [], [

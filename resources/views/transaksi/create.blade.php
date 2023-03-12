@@ -24,21 +24,28 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col">Cari Paket</label>
+                                <label class="col">Pilih Paket </label>
                                 <div class="col">
-                                    <x-select-transaksi name="paket" :data-option="$pakets" />
+                                    <x-select-transaksi
+                                        name="paket"
+                                        :data-option="$pakets" required
+                                    />
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col">Quantity</label>
+                                <label class="col">Quantity </label>
                                 <div class="col">
-                                    <x-input-transaksi name="quantity" />
+                                    <x-input-transaksi
+                                        name="quantity" type="number" required
+                                    />
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col">Keterangan</label>
+                                <label class="col">Keterangan </label>
                                 <div class="col">
-                                    <x-textarea-transaksi name="keterangan" />
+                                    <x-textarea-transaksi
+                                        name="keterangan" required
+                                    />
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -57,6 +64,8 @@
                             <th>No</th>
                             <th>Nama Paket</th>
                             <th>Qty</th>
+                            <th>Harga</th>
+                            <th>Diskon</th>
                             <th>Sub Total</th>
                             <th>Keterangan</th>
                             <th></th>
@@ -70,10 +79,16 @@
                                 <td>{{ $no++ }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>
-                                    {{ $item->quantity }} x {{ number_format($item->price, 0, ',', '.') }}
+                                    {{ $item->quantity }} x {{ number_format($item->attributes->harga_awal,0,',','.') }}
                                 </td>
                                 <td>
-                                    {{ number_format($item->quantity * $item->price, 0, ',', '.') }}
+                                    {{ number_format($item->quantity * $item->attributes->harga_awal,0,',','.') }}
+                                </td>
+                                <td>
+                                    {{ number_format($item->quantity * $item->attributes->diskon,0,',','.') }}
+                                </td>
+                                <td>
+                                    {{ number_format($item->quantity * $item->price,0,',','.') }}
                                 </td>
                                 <td>{{ $item->attributes->keterangan }}</td>
                                 <td>
@@ -172,19 +187,16 @@
 @endsection
 @push('js')
     <script>
-      $('#diskon, #biaya_tambahan').keyup(function () {
-        let t = parseInt($('#total').val());
-        let d = parseInt($('#diskon').val());
-        let bt = parseInt($('#biaya_tambahan').val());
-
-        d = isNaN(d) ? 0 : d;
-        bt = isNaN(bt) ? 0 : bt;
-
-        let total = t - d + bt;
-        let pajak = Math.round( total * 10 / 100 );
-
-        $("#pajak").val(pajak);
-        $("#total_bayar").val(total + pajak);
-      })
+        $('#diskon, #biaya_tambahan').keyup(function (e) {
+            let t = parseInt($('#total').val());
+            let d = parseInt($('#diskon').val());
+            let bt = parseInt($('#biaya_tambahan').val());
+            d = isNaN(d) ? 0 : d;
+            bt = isNaN(bt) ? 0 : bt;
+            let total = t - d + bt ;
+            let pajak = Math.round( total * 10 / 100 );
+            $("#pajak").val(pajak);
+            $("#total_bayar").val(total + pajak);
+        });
     </script>
 @endpush

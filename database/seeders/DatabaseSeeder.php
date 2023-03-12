@@ -52,20 +52,20 @@ class DatabaseSeeder extends Seeder
         ],
     ]);
         
-        DB::table('pakets')->insert([
-            [
-                'nama_paket' => 'Reguler',
-                'harga' => 7000,
-                'jenis' => 'kiloan',
-                'outlet_id' => 1,
-            ],
-            [
-                'nama_paket' => 'Bed Cover',
-                'harga' => 5000,
-                'jenis' => 'bed_cover',
-                'outlet_id' => 1,
-            ],
-    ]);
+    //     DB::table('pakets')->insert([
+    //         [
+    //             'nama_paket' => 'Reguler',
+    //             'harga' => 7000,
+    //             'jenis' => 'kiloan',
+    //             'outlet_id' => 1,
+    //         ],
+    //         [
+    //             'nama_paket' => 'Bed Cover',
+    //             'harga' => 5000,
+    //             'jenis' => 'bed_cover',
+    //             'outlet_id' => 1,
+    //         ],
+    // ]);
 
     DB::table('members')->insert([
         [

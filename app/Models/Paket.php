@@ -7,13 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Paket extends Model
 {
+
     use HasFactory;
+
     public $timestamps = false;
 
     protected $fillable = [
         'nama_paket',
         'harga',
         'jenis',
-        'outlet_id'
-];
+        'diskon',
+        'harga_akhir',
+        'outlet_id',
+    ];
 }

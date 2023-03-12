@@ -12,8 +12,7 @@ use App\Models\User;
 use App\Models\LogActivity;
 use Auth;
 use Cart;
-
-
+use carbon\Carbon;
 
 
 class TransaksiController extends Controller
@@ -81,31 +80,30 @@ class TransaksiController extends Controller
         ]);
     }
 
-    public function add (Request $request, Member $member)
+    public function add(Request $request, Member $member)
     {
         $request->validate([
-            'paket'=>'required|exists:pakets,id',
-            'quantity'=>'required|numeric',
-            'keterangan'=>'nullable|max:200',
+            'paket' => 'required|exists:pakets,id',
+            'quantity' => 'required|numeric|min:1',
+            'keterangan' => 'nullable|max:200',
         ]);
 
         $paket = Paket::find($request->paket);
-        $paket->qty = $request->quantity;
-        
 
         Cart::session($member->id)->add(array(
             'id' => $paket->id,
             'name' => $paket->nama_paket,
-            'price'=> $paket->harga,
-            'quantity' =>$paket->qty,
+            'price' => $paket->harga_akhir,
+            'quantity' => $request->quantity,
             'attributes' => [
-                'keterangan'=>$request->keterangan
+                'harga_awal' => $paket->harga,
+                'keterangan' => $request->keterangan,
+                'diskon' => $paket->diskon,
             ]
-            ));
+        ));
 
-            return back();
+        return back();
     }
-
     public function delete(Member $member, Paket $paket)
     {
         Cart::session($member->id)->remove($paket->id);
@@ -181,12 +179,13 @@ class TransaksiController extends Controller
 
         foreach ($items as $item) {
             TransaksiDetail::create([
-                'transaksi_id'=>$transaksi->id,
-                'paket_id'=>$item->id,
-                'harga'=>$item->price,
-                'qty'=>$item->quantity,
-                'sub_total'=>$item->price * $item->quantity,
-                'keterangan'=>$item->attributes->keterangan,
+                'transaksi_id' => $transaksi->id,
+                'paket_id' => $item->id,
+                'harga' => $item->attributes->harga_awal,
+                'diskon_paket' => $item->attributes->diskon,
+                'qty' => $item->quantity,
+                'sub_total' => $item->price * $item->quantity,
+                'keterangan' => $item->attributes->keterangan,
             ]);
         }
         Cart::clear();
@@ -199,25 +198,25 @@ class TransaksiController extends Controller
         $user = User::find($transaksi->user_id);
         $member = Member::find($transaksi->member_id);
         $outlet = Outlet::find($transaksi->outlet_id);
-        $items =  
-        TransaksiDetail::join('pakets','pakets.id','transaksi_details.paket_id')
-        ->where('transaksi_id',$transaksi->id)
-        ->select(
-            'pakets.id as id',
-            'nama_paket',
-            'qty',
-            'transaksi_details.harga as harga',
-            'sub_total',
-            'keterangan'
-        )
-        ->get ();
+        $items = TransaksiDetail::join('pakets', 'pakets.id', 'transaksi_details.paket_id')
+            ->where('transaksi_id', $transaksi->id)
+            ->select(
+                'pakets.id as id',
+                'nama_paket',
+                'qty',
+                'transaksi_details.harga as harga',
+                'sub_total',
+                'diskon_paket', // tambahkan ini
+                'keterangan',
+            )
+            ->get();
 
-        return view('transaksi.detail',[
-            'items'=>$items,
-            'member'=>$member,
-            'user'=>$user,
-            'outlet'=>$outlet,
-            'transaksi'=>$transaksi
+        return view('transaksi.detail', [
+            'items' => $items,
+            'member' => $member,
+            'user' => $user,
+            'outlet' => $outlet,
+            'transaksi' => $transaksi,
         ]);
     }
 
@@ -269,14 +268,42 @@ class TransaksiController extends Controller
         return back()->with('message', 'success update');
     }
 
+    const ALLOWED_VALUES = ['baru', 'proses', 'selesai', 'diambil'];
     public function status(Transaksi $transaksi, $status)
     {
-        LogActivity::add('Berhasil Mengupdate Status');
+        if (!in_array($status, self::ALLOWED_VALUES)) {
+            return back()->with('message', 'fail store');
+        }
+
+        if ($transaksi->status == 'diambil') {
+            return back()->with('message', 'fail store');
+        } 
+        
+        if ($transaksi->status == 'baru') {
+            $nextStatus = 'proses';
+        } elseif ($transaksi->status == 'proses') {
+            $nextStatus = 'selesai';
+        } elseif ($transaksi->status == 'selesai') {
+            $nextStatus = 'diambil';
+        } else {
+            $nextStatus = null;
+        }
+
+        if($nextStatus != null && $status != $nextStatus) {
+            return back()->with('message', 'fail store');
+        }
         $transaksi->update([
-            'status'=>$status
+            'status' => $status,
         ]);
 
-        return back()->with('message','success update');
+        LogActivity::add('mengupdate status transaksi ke status ' .$status. '.' . 'Invoice :' . $transaksi->kode_invoice);
+        if ($status == 'selesai' || $status = 'diambil') {
+            $transaksi->update([
+                'tgl_' .$status => Carbon::now(),
+            ]);
+        }
+
+        return back()->with('message', 'success update');
     }
 
     public function invoice(Transaksi $transaksi)
@@ -284,14 +311,14 @@ class TransaksiController extends Controller
         $user = User::find($transaksi->user_id);
         $member = Member::find($transaksi->member_id);
         $outlet = Outlet::find($transaksi->outlet_id);
-        $items =
-        TransaksiDetail::join('pakets','pakets.id','transaksi_details.paket_id')
+        $items = TransaksiDetail::join('pakets','pakets.id','transaksi_details.paket_id')
         ->where('transaksi_id',$transaksi->id)
         ->select(
             'pakets.id as id',
             'nama_paket',
             'qty',
             'transaksi_details.harga as harga',
+            'diskon_paket',
             'sub_total',
             'keterangan'
         )

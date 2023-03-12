@@ -51,10 +51,12 @@
         <hr>
         <p>
             Kode Transaksi : {{ $transaksi->kode_invoice }} <br>
-            Tanggal : {{  date('l d F Y H:i:s', strtotime($transaksi->tgl))}} <br>
-            Tanggal Diambil : {{  date('l d F Y H:i:s', strtotime($transaksi->batas_waktu))}} <br>
+            Tanggal Transaksi: {{  date('l d F Y H:i:s', strtotime($transaksi->tgl))}} <br>
             @if($transaksi->dibayar == 'dibayar')
             Tanggal Bayar : {{  date('l d F Y H:i:s', strtotime($transaksi->tgl_bayar))}} <br>
+            @endif
+            @if($transaksi->status == 'diambil')
+            Tanggal Diambil : {{  date('l d F Y H:i:s', strtotime($transaksi->tgl_diambil))}} <br>
             @endif
             Nama Pelanggan : {{ $member->nama }} <br>
             Kasir : {{ $user->nama }}
@@ -63,15 +65,22 @@
 
         <table>
             @foreach ($items as $item)
-            <tr>
-                <td>
-                    {{ $item->qty  }} {{ $item->nama_paket }}
-                    x {{ number_format($item->harga,0,',','.') }} <br>
-                    <small>Ket : {{ $item->keterangan }}</small>
-                </td>
-                <td class="right">
-                    {{ number_format($item->harga * $item->qty,0,',','.') }}</td>
-            </tr>
+                <tr>
+                    <td>
+                        {{ $item->qty }} {{ $item->nama_paket }}
+                        x {{ number_format($item->harga,0,',','.') }} <br>
+                        Diskon : {{ $item->diskon_paket * $item->qty }} <br>
+                        <small>Ket : {{ $item->keterangan }}</small>
+                    </td>
+                    <td class="right">
+                        @if ($item->diskon_paket != null)
+                        {{-- <del>{{ number_format($item->harga * $item->qty,0,',','.') }}</del> --}}
+                        {{ number_format($item->sub_total,0,',','.') }}
+                        @else
+                        {{ number_format($item->sub_total,0,',','.') }}
+                        @endif
+                    </td>
+                </tr>
             @endforeach
         </table>
 
@@ -79,7 +88,7 @@
 
         <p class="right">
             Sub Total : {{ number_format($transaksi->sub_total,0,',','.') }} <br>
-            Diskon : {{ number_format($transaksi->diskon,0,',','.') }} <br>
+            Diskon Tambahan : {{ number_format($transaksi->diskon,0,',','.') }} <br>
             Biaya Tambahan : {{ number_format($transaksi->biaya_tambahan,0,',','.') }} <br>
             Pajak PPN(10%) : {{ number_format($transaksi->pajak,0,',','.') }} <br>
             Total : {{ number_format($transaksi->total_bayar,0,',','.') }} <br>
@@ -87,10 +96,24 @@
             Tunai : {{ number_format($transaksi->cash,0,',','.') }} <br>
             Kembalian : {{ number_format($transaksi->kembalian,0,',','.') }} <br>
             {{-- @endif --}}
-        </p>
         @if($transaksi->dibayar == 'dibayar')
         <h3 class="center">Terima Kasih</h3>
         @endif
+    </p>
+    {{-- <p class="right">
+        @if ($transaksi->tgl_diambil == null)
+            <small>
+                <i>
+                </i>
+            </small>
+            @else
+            <small>
+                <i>
+                Diambil: {{ date('d-M-Y', strtotime($transaksi->tgl_diambil)) }}
+                </i>
+            </small>
+        @endif
+    </p> --}}
     </div>
 </body>
 </html>

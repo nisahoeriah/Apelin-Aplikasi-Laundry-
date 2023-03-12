@@ -89,27 +89,41 @@ action="{{ route('transaksi.update',['transaksi'=>$transaksi->id]) }}"
                         class="btn btn-default mr-2">Kembali</a>
             
             <div class="dropdown">
-                @if ($transaksi->status != 'diambil')
+                @if ($transaksi->status !='diambil' && $transaksi->dibayar == 'belum_bayar')
                 <button class="btn btn-success dropdown-toggle" 
                     type="button" data-toggle="dropdown">
                      Pilih Status Menjadi
                 </button>
-                @endif
                 <div class="dropdown-menu">
                     <?php
                     $status = [
                         ['Proses','proses'],
                         ['Selesai','selesai'],
-                        ['Diambil','diambil']
                 ]; 
                 ?>
-                @foreach ($status as $row)
+                @if ($transaksi->status == 'baru')
+                <a href="{{ route('transaksi.status', ['transaksi' => $transaksi->id, 'status' => 'proses']) }}"
+                    class="dropdown-item">
+                    Proses
+                </a>
+                @elseif ($transaksi->status == 'proses')
+                <a href="{{ route('transaksi.status', ['transaksi' => $transaksi->id, 'status' => 'selesai']) }}"
+                    class="dropdown-item">
+                    Selesai
+                </a>
+                @elseif ($transaksi->status == 'selesai')
+                <button disabled class="dropdown-item">
+                    Silahkan Bayar
+                </button>
+                @endif
+                {{-- @foreach ($status as $row)
                 <a class="dropdown-item"
                 href="{{ route('transaksi.status',['transaksi'=>$transaksi->id,'status'=>$row[1]]) }}">
                 {{ $row[0] }}
                 </a>
-                    @endforeach
+                    @endforeach --}}
                 </div>
+                @endif
             </div>
         </div>
         <div class="col">

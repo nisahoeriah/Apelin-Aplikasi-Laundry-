@@ -23,7 +23,11 @@ class PaketController extends Controller
         })
         ->select(
             'pakets.id as id',
-            'nama_paket','harga','jenis',
+            'nama_paket',
+            'harga',
+            'jenis',
+            'diskon', 
+            'harga_akhir', 
             'outlets.nama as outlet'
         )
         ->paginate();
@@ -40,9 +44,11 @@ class PaketController extends Controller
             'lain'=>'Lainnya',
         ];
 
-        $pakets->map(function($row) use ($jenis) {
+        $pakets->map(function ($row) use ($jenis) {
             $row->jenis = $jenis[$row->jenis];
-            $row->harga = number_format($row->harga,0,',','.');
+            $row->harga = number_format($row->harga, 0, ',', '.');
+            $row->diskon = number_format($row->diskon, 0, ',', '.'); // tambahkan ini
+                $row->harga_akhir = number_format($row->harga_akhir, 0, ',', '.'); // tambahkan ini
             return $row;
         });
 
@@ -74,12 +80,14 @@ class PaketController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_paket'=>'required|max:100|unique:paketss,nama',
-            'harga'=>'required|numeric',
-            'jenis'=>'required|in:kiloan,bed_cover,kaos,selimut,lain',
-            'outlet_id'=>'required|exists:outlets,id'
-        ],[],[
-            'outlet_id'=>'Outlet'
+            'nama_paket' => 'required|max:100|unique:pakets,nama_paket',
+            'harga' => 'required|numeric|min:0',
+            'jenis' => 'required|in:kiloan,kaos,bed_cover,selimut,lain',
+            'diskon' => 'nullable|numeric|min:0|', // tambahkan ini
+            'harga_akhir' => 'required|numeric|min:0|', // tambahkan ini
+            'outlet_id' => 'required|exists:outlets,id',
+        ], [], [
+            'outlet_id' => 'Outlet',
         ]);
 
         Paket::create($request->all());
@@ -125,12 +133,14 @@ class PaketController extends Controller
     public function update(Request $request, Paket $paket)
     {
         $request->validate([
-            'nama_paket'=>'required|max:100|unique:pakets,nama',
-            'harga'=>'required|numeric',
-            'jenis'=>'required|in:kiloan,bed_cover,kaos,selimut,lain',
-            'outlet_id'=>'required|exists:outlets,id'
-        ],[],[
-            'outlet_id'=>'Outlet'
+            'nama_paket' => 'required|max:100',
+            'harga' => 'required|numeric|min:0',
+            'jenis' => 'required|in:kiloan,kaos,bed_cover,selimut,lain',
+            'diskon' => 'nullable|numeric|min:0|', // tambahkan ini
+            'harga_akhir' => 'required|numeric|min:0|', // tambahkan ini
+            'outlet_id' => 'required|exists:outlets,id',
+        ], [], [
+            'outlet_id' => 'Outlet',
         ]);
 
         $paket->update($request->all());

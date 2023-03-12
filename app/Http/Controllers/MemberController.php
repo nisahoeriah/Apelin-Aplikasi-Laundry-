@@ -100,7 +100,7 @@ class MemberController extends Controller
     public function update(Request $request, Member $member)
     {
         $request->validate([
-            'nama' => 'required|max:100|unique:members,nama',
+            'nama' => 'required|max:100',
             'jenis_kelamin' => 'required|in:L,P',
             'alamat' => 'required|max:250',
             'tlp' => 'required|numeric'

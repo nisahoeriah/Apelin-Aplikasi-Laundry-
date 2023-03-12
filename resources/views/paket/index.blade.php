@@ -16,7 +16,7 @@
 
     <div class="card card-outline card-info">
         <div class="card-header form-inline">
-            <x-btn-add :href="route('paket.create')" />
+            <x-btn-add :href="route('paket.create')" :title="'Paket'" />
             <x-search/>
         </div>
         <div class="card-body p-0">
@@ -27,6 +27,8 @@
                         <th>Nama paket</th>
                         <th>Harga</th>
                         <th>Jenis</th>
+                        <th>Diskon</th> 
+                        <th>Harga Akhir</th> 
                         <th>Outlet</th>
                         <th></th>
                     </tr>
@@ -41,11 +43,13 @@
                         <td>{{ $paket->nama_paket }}</td>
                         <td>{{ $paket->harga }}</td>
                         <td>{{ $paket->jenis }}</td>
+                        <td>{{ $paket->diskon }}</td>
+                        <td>{{ $paket->harga_akhir }}</td> 
                         <td>{{ $paket->outlet }}</td>
-                        <td>
+                        <td class="text-right">
                             <x-edit :href="route('paket.edit',['paket'=>$paket->id])" />
 
-                            <x-delete :data-url="route('paket.destroy',['paket'=>$paket->id])" />
+                            <x-delete data-name="{{ $paket->nama_paket }}" :data-url="route('paket.destroy',['paket'=>$paket->id])" />
                         </td>
                     </tr>
                     @endforeach

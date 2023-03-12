@@ -31,8 +31,10 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Nama Paket</th> 
+                        <th>Nama Paket</th>
                         <th>Qty</th>
+                        <th>Harga</th>
+                        <th>Diskon</th>
                         <th>Sub Total</th>
                         <th>Keterangan</th>
                     </tr>
@@ -42,14 +44,12 @@
                    @forelse ($items as $item)
                    <tr>
                     <td>{{ $no++ }}</td>
-                    <td>{{ $item->nama_paket }}</td>
-                    <td>
-                        {{ $item->qty }} x {{ number_format($item->harga,0,',','.') }}
-                    </td>
-                    <td>
-                        {{ number_format($item->qty * $item->harga,0,',','.') }}
-                    </td>
-                    <td>{{ $item->keterangan }}</td>
+                                <td>{{ $item->nama_paket }}</td>
+                                <td>{{ $item->qty }} x {{ number_format($item->harga,0,',','.') }}</td>
+                                <td>{{ number_format($item->qty * $item->harga,0,',','.') }}</td>
+                                <td>{{ number_format($item->qty * $item->diskon_paket,0,',','.') }}</td>
+                                <td>{{ number_format($item->sub_total,0,',','.') }}</td>
+                                <td>{{ $item->keterangan }}</td>
                     </tr> 
                     @empty
                     <tr>
