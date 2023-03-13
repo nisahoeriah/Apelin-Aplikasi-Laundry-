@@ -175,7 +175,7 @@
                                     class="btn btn-danger">Clear</a>
                             </div>
                             <div class="col">
-                                <button type="submit" class="btn btn-info btn-block"><i
+                                <button id="btn-submit" type="submit" class="btn btn-info btn-block"><i
                                         class="fas fa-database mr-2"></i> Simpan / Proses</button>
                             </div>
                         </div>
@@ -185,18 +185,30 @@
         </div>
     </x-content>
 @endsection
+@push('css')
+    <link rel="stylesheet" href="{{ asset('adminlte/plugins/toastr/toastr.min.css') }}">
+@endpush
+
 @push('js')
-    <script>
-        $('#diskon, #biaya_tambahan').keyup(function (e) {
-            let t = parseInt($('#total').val());
-            let d = parseInt($('#diskon').val());
-            let bt = parseInt($('#biaya_tambahan').val());
-            d = isNaN(d) ? 0 : d;
-            bt = isNaN(bt) ? 0 : bt;
-            let total = t - d + bt ;
-            let pajak = Math.round( total * 10 / 100 );
-            $("#pajak").val(pajak);
-            $("#total_bayar").val(total + pajak);
-        });
-    </script>
+<script src="{{ asset('adminlte/plugins/toastr/toastr.min.js') }}"></script>
+<script>
+    $('#diskon, #biaya_tambahan').keyup(function (e) {
+        let t = parseInt($('#total').val());
+        let d = parseInt($('#diskon').val());
+        let bt = parseInt($('#biaya_tambahan').val());
+        d = isNaN(d) ? 0 : d;
+        bt = isNaN(bt) ? 0 : bt;
+        let total = t - d + bt ;
+        let pajak = Math.round( total * 10 / 100 );
+        let total_bayar = total + pajak;
+        $("#pajak").val(pajak);
+        $("#total_bayar").val(total_bayar);
+        if (total_bayar < 0) {
+            $('#btn-submit').prop('disabled', true);
+            toastr.error('Total bayar tidak boleh minus!');
+        } else {
+            $('#btn-submit').prop('disabled', false);
+        }
+    });
+</script>
 @endpush

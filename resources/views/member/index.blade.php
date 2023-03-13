@@ -25,6 +25,7 @@
                     <tr>
                         <th>No</th>
                         <th>Nama</th>
+                        <th>Foto</th>
                         <th>P/L</th>
                         <th>Telepon</th>
                         <th>Alamat</th>
@@ -39,6 +40,9 @@
                     <tr>
                         <td>{{ $no++ }}</td>
                         <td>{{ $member->nama }}</td>
+                        <td>
+                            <img src="{{ $member->foto }}" class="img-fluid mr-2 rounded" width="120" align="left" />
+                        </td>
                         <td>{{ $member->jenis_kelamin }}</td>
                         <td>{{ $member->tlp }}</td>
                         <td>{{ $member->alamat }}</td>

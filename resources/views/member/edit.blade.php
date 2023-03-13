@@ -4,9 +4,9 @@
     <div class="row">
         <div class="col-lg-4 col-md-6">
             <form 
-            class="card card-info" 
+            class="card card-info" action="{{ route('member.update',['member'=>$member->id]) }}"
             method="POST" 
-            action="{{ route('member.update',['member'=>$member->id]) }}">
+            enctype="multipart/form-data">
                 <div class="card-header">
                     Edit Member
                 </div>
@@ -15,6 +15,11 @@
                     @method('PUT')
                     <x-input label="Nama" name="nama" 
                     :value="$member->nama" />
+
+                    <img src="{{ $member->foto }}" class="img-flud" />
+
+                    <label>Ganti File Foto/Gambar</label>
+                    <x-input name="file_foto" type="file"/>
 
                     <x-select 
                     label="Jenis Kelamin" name="jenis_kelamin"

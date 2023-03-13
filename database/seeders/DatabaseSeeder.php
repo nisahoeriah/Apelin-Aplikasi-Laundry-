@@ -67,26 +67,26 @@ class DatabaseSeeder extends Seeder
     //         ],
     // ]);
 
-    DB::table('members')->insert([
-        [
-            'nama'=>'Nisa Hoeriah',
-            'jenis_kelamin'=>'P',
-            'alamat'=>'Padaherang',
-            'tlp'=>'888777666888'
-        ],
-        [
-            'nama'=>'Lia Cahyani',
-            'jenis_kelamin'=>'P',
-            'alamat'=>'Padaherang',
-            'tlp'=>'888222666555'
-        ],
-        [
-            'nama'=>'Tita Herlita',
-            'jenis_kelamin'=>'P',
-            'alamat'=>'Banjarsari',
-            'tlp'=>'888777666333'
-        ]
-        ]);
+    // DB::table('members')->insert([
+    //     [
+    //         'nama'=>'Nisa Hoeriah',
+    //         'jenis_kelamin'=>'P',
+    //         'alamat'=>'Padaherang',
+    //         'tlp'=>'888777666888'
+    //     ],
+    //     [
+    //         'nama'=>'Lia Cahyani',
+    //         'jenis_kelamin'=>'P',
+    //         'alamat'=>'Padaherang',
+    //         'tlp'=>'888222666555'
+    //     ],
+    //     [
+    //         'nama'=>'Tita Herlita',
+    //         'jenis_kelamin'=>'P',
+    //         'alamat'=>'Banjarsari',
+    //         'tlp'=>'888777666333'
+    //     ]
+    //     ]);
 
     }
 }

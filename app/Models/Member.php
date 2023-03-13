@@ -13,6 +13,7 @@ class Member extends Model
 
     protected $fillable = [
         'nama',
+        'foto',
         'alamat',
         'tlp',
         'jenis_kelamin'

@@ -4,15 +4,17 @@
     <div class="row">
         <div class="col-lg-4 col-md-6">
             <form 
-            class="card card-info" 
-            method="POST" 
-            action="{{ route('member.store') }}">
+            class="card card-info" action="{{ route('member.store') }}" method="POST" 
+            enctype="multipart/form-data">
                 <div class="card-header">
                     Buat Member
                 </div>
                 <div class="card-body">
                     @csrf
                     <x-input label="Nama" name="nama"/>
+
+                    <label>File Foto/Gambar</label>
+                    <x-input name="file_foto" type="file" />
 
                     <x-select 
                     label="Jenis Kelamin" name="jenis_kelamin" 

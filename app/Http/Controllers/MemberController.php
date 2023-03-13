@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Member;
 use App\Models\LogActivity;
+use Image;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
@@ -22,6 +23,10 @@ class MemberController extends Controller
         })
         ->paginate();
 
+        $members->map(function($row){
+            $row->foto = asset("images/{$row->foto}");
+            return $row;
+            });
         if ($search) {
             $members->appends(['search' => $search]);
         }
@@ -51,13 +56,30 @@ class MemberController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|max:100|unique:members,nama',
+            'nama' => 'required|max:100',
             'jenis_kelamin' => 'required|in:L,P',
+            'file_foto'=>'required|image|max:2000',
             'alamat' => 'required|max:250',
             'tlp' => 'required|numeric'
         ], [], [
             'tlp' => 'Telepon'
         ]);
+
+        $folder = 'images';
+        if (!file_exists($folder)){
+        mkdir($folder, 0777, true);
+        }
+        $file = $request->file('file_foto');
+        $ext = $file->getClientOriginalExtension();
+        $filename = date('Ymdhis').'.'.$ext;
+        $img = Image::make($file);
+        $img->fit(300,200);
+        $img->save($folder.'/'.$filename);
+        $request->merge([
+        'foto'=>$filename,
+        ]);
+
+        
 
         Member::create($request->all());
 
@@ -84,6 +106,7 @@ class MemberController extends Controller
      */
     public function edit(Member $member)
     {
+        $member->foto = asset("images/{$member->foto}");
         LogActivity::add('Berhasil Mengupdate Member');
         return view('member.edit', [
             'member' => $member
@@ -102,11 +125,30 @@ class MemberController extends Controller
         $request->validate([
             'nama' => 'required|max:100',
             'jenis_kelamin' => 'required|in:L,P',
+            'file_foto'=>'nullable|image|max:2000',
             'alamat' => 'required|max:250',
             'tlp' => 'required|numeric'
         ],[], [
             'tlp' => 'Telepon'
         ]);
+
+        if ($request->file_foto){
+
+            $folder = 'images';
+            $foto_lama = "{$folder}/{$member->foto}";
+            if (file_exists($foto_lama)){
+            unlink($foto_lama);
+            }
+            $file = $request->file('file_foto');
+            $ext = $file->getClientOriginalExtension();
+            $filename = date('Ymdhis').'.'.$ext;
+            $img = Image::make($file);
+            $img->fit(300,200);
+            $img->save($folder.'/'.$filename);
+            $request->merge([
+            'foto'=>$filename,
+            ]);
+        }
 
         $member->update($request->all());
 
@@ -122,8 +164,16 @@ class MemberController extends Controller
      */
     public function destroy(Member $member)
     {
-        LogActivity::add('Berhasil Menghapus Member');
+
+        $folder = 'images';
+        $foto_lama = "{$folder}/{$member->foto}";
+        if (file_exists($foto_lama)) {
+        unlink($foto_lama);
+        }
+       
+
         $member->delete();
+        LogActivity::add('Berhasil Menghapus Member');
         return back()->with('message', 'success delete');
     }
 }
